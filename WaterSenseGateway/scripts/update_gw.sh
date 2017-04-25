@@ -2,15 +2,15 @@
 
 echo "updating gateway"
 cd /home/pi
-echo "removing any existing gw_full_latest folder (from previous update)"
-rm -rf gw_full_latest
-echo "getting new gw_full_latest from github"
-svn checkout https://github.com/CongducPham/LowCostLoRaGw/trunk/gw_full_latest
+echo "removing any existing WaterSenseGateway folder (from previous update)"
+rm -rf WaterSenseGateway
+echo "getting latest WaterSenseGateway from github"
+svn checkout https://github.com/CongducPham/WaterSense/trunk/WaterSenseGateway
 
 if [ -d lora_gateway ]
 	then
 		echo "detecting an existing lora_gateway folder"
-		cd gw_full_latest
+		cd WaterSenseGateway
 		echo "preserving your key files"
 		rm key_*
 		echo "preserving your configuration files"
@@ -19,8 +19,8 @@ if [ -d lora_gateway ]
 		cp -r * /home/pi/lora_gateway
 	else
 		echo "new installation"
-		echo "simply renaming gw_full_latest in lora_gateway"
-		mv gw_full_latest lora_gateway	
+		echo "simply renaming WaterSenseGateway in lora_gateway"
+		mv WaterSenseGateway lora_gateway	
 fi	
 cd /home/pi/lora_gateway
 echo "compiling the gateway program"

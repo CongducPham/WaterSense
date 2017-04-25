@@ -53,7 +53,7 @@ Features
 	- Includes most of features described here but a full update with the latest version is **necessary, see below**	
 	- By default, incoming data are uploaded to the [WaterSense ThingSpeak test channel](https://thingspeak.com/channels/248544)
 	- By default, the gateway is running at 433.3MHz.
-	- Works out-of-the-box with the [Arduino_LoRa_SoilHum sketch](https://github.com/CongducPham/WaterSense/tree/master/sketch/Arduino_LoRa_Simple_SoilHum)
+	- Works out-of-the-box with the [Arduino_LoRa_Simple_SoilHum sketch](https://github.com/CongducPham/WaterSense/tree/master/sketch/Arduino_LoRa_Simple_SoilHum)
 	
 Latest gateway version 
 ======================
@@ -238,7 +238,7 @@ See an example [video here](https://www.youtube.com/watch?v=YsKbJeeav_M) demonst
 
 First, install the Arduino IDE 1.6.6. Check that the AVR board library is not above 1.6.9 as there might be some compilation issue otherwise. Then, in your sketch folder, copy the content of the sketch folder of the distribution.
 
-With the Arduino IDE, open the Arduino_LoRa_SoilHum sketch, compile it and upload to an Arduino board. Check your radio module first, see "Connect a radio module to your end-device" above.
+With the Arduino IDE, open the Arduino_LoRa_Simple_SoilHum sketch, compile it and upload to an Arduino board. Check your radio module first, see "Connect a radio module to your end-device" above.
 
 The end-device runs in LoRa mode 1 and has address 8. It will send data to the gateway.
 
@@ -267,7 +267,7 @@ Running in 433MHz band
 
 When your radio module can run in the 433MHz band (for instance when the radio is based on SX1276 or SX1278 chip, such as the inAir4 from Modtronics) then you can test running at 433MHz as follows:
 
-- select line "#define BAND433" in Arduino_LoRa_SoilHum
+- select line "#define BAND433" in Arduino_LoRa_Simple_SoilHum
 - set in gateway_conf.json the freq to be 433.3
 	- "freq" : 433.3
 - there are 4 channels in the 433MHz band: 433.3MHz as CH_00_433, 433.6MHz as CH_01_433, 433.9MHz as CH_02_433 and 434.3MHz as CH_03_433 
@@ -338,14 +338,6 @@ You should see the following output
 
 If one of the state result is different from 0 then it might be a power/current issue. If the Preamble Length is different from 8 then it can also be a power/current issue but also indicate more important failure of the radio module. Get the "faulty" radio module and connect it to an Arduino board running the interactive end-device sketch. If the Preamble Length is now correct, then retry again with the Raspberry gateway. If the problem on the Raspberry persists, try with another radio module.
 	
-WARNING
-=======
-
-- There is currently no control on the transmit time for both gateway and end-device. When using the library to create devices, you have to ensure that the transmit time of your device is not exceeding the legal maximum transmit time defined in the regulation of your country (for instance ETSI define 1% duty-cycle, i.e. 36s/hour).
-
-- Although 900MHz band is supported (mostly for the US ISM band), the library does not implement the frequency hopping mechanism nor the limited dwell time (e.g. 400ms per transmission).
-
-
 Tutorial materials (from WAZIUP)
 ================================
 

@@ -222,7 +222,7 @@ Configure the SMS service in clouds.json
 			"name":"SMS Service",
 			"script":"python CloudSMS.py",
 			"type":"smsservice",
-			"pin":0,   
+			"pin": "0000",   
 			"contacts":["+336XXXXXXXX","+336XXXXXXXX","+337XXXXXXXX"],
 			"source_list":[],
 			"gammurc_file":"/home/pi/.gammurc",
@@ -239,8 +239,6 @@ Configure the SMS service in clouds.json
 | enabled        |always true, don't change it     								|
 | always_enabled |if true, SMS will be sent whenever data is pushed.            |
 |				 |if false, SMS will be sent only if Internet is not available.	|
-
-Now the SMS service is operational.
 
 Enjoy,
 C. Pham & M. Diop		
