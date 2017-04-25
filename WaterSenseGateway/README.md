@@ -9,7 +9,7 @@ Please also consult the web page: http://cpham.perso.univ-pau.fr/LORA/RPIgateway
 - [Build your low-cost LoRa gateway with WAZIUP](https://www.youtube.com/watch?v=peHkDhiH3lE)
 
 
-**This is a dedicated README file for the WaterSense project in Pakistan.**
+**This is a dedicated README file for the WaterSense project in Pakistan. Most of the contributions come from the H2020 WAZIUP project**
 
 Upgrade notice
 --------------
@@ -205,7 +205,7 @@ Actually, both lora_gateway can take additional parameters to configure the radi
 
 	> sudo python start_gw.py
 
-This is the command that we recommend. To test, just flash a temperature sensor and it should work out-of-the-box on our [LoRa ThingSpeak test channel](https://thingspeak.com/channels/66794).
+This is the command that we recommend.
 
 You can also customize the post-processing stage (post_processing_gw.py) at your convenience later.
 
@@ -244,7 +244,7 @@ The end-device runs in LoRa mode 1 and has address 8. It will send data to the g
 
 The default configuration uses an application key filter set to [5, 6, 7, 8].
 
-Use 2 soil moisture sensors ([such as these one](https://fr.aliexpress.com/item/10pcs-lot-soil-the-hygrometer-detection-module-soil-moisture-sensor-Robot-smart-car-For-UNO-R3/1966071577.html?spm=2114.06010108.3.1.RhS56X&ws_ab_test=searchweb0_0,searchweb201602_1_10152_10065_10151_10068_10136_10137_10060_10138_10155_10062_10156_10154_10056_10055_10054_10059_10099_10103_10102_10096_10148_10147_10052_10053_10142_10107_10050_10051_10084_10083_10080_10082_10081_10177_10110_10111_10112_10113_10114_10181_10037_10033_10032_10078_10079_10077_10073_10070_10123_10124-10051_10033_10037_10077,searchweb201603_10,ppcSwitch_5&btsid=d5edd899-67a7-4643-a24b-b9736627411a&algo_expid=ac90f355-e52d-4eda-9edb-7b6fd638f1ad-0&algo_pvid=ac90f355-e52d-4eda-9edb-7b6fd638f1ad)) and plugged their data pin into pin A0 and pin A1 (analog 0 and analog 1). Use digital 9 and 8 (the sketch set these pins HIGH when reading value, then sets them back to LOW) to power your sensors. 
+Use 2 soil moisture sensors ([such as this one](https://fr.aliexpress.com/item/10pcs-lot-soil-the-hygrometer-detection-module-soil-moisture-sensor-Robot-smart-car-For-UNO-R3/1966071577.html?spm=2114.06010108.3.1.RhS56X&ws_ab_test=searchweb0_0,searchweb201602_1_10152_10065_10151_10068_10136_10137_10060_10138_10155_10062_10156_10154_10056_10055_10054_10059_10099_10103_10102_10096_10148_10147_10052_10053_10142_10107_10050_10051_10084_10083_10080_10082_10081_10177_10110_10111_10112_10113_10114_10181_10037_10033_10032_10078_10079_10077_10073_10070_10123_10124-10051_10033_10037_10077,searchweb201603_10,ppcSwitch_5&btsid=d5edd899-67a7-4643-a24b-b9736627411a&algo_expid=ac90f355-e52d-4eda-9edb-7b6fd638f1ad-0&algo_pvid=ac90f355-e52d-4eda-9edb-7b6fd638f1ad)) and plugged their data pin into pin A0 and pin A1 (analog 0 and analog 1). Use digital 9 and 8 (the sketch set these pins HIGH when reading value, then sets them back to LOW) to power your sensors. 
 
 For low-power applications the Pro Mini from Sparkfun is certainly a good choice. This board can be either in the 5V or 3.3V version. With the Pro Mini, it is better to really use the 3.3V version running at 8MHz as power consumption will be reduced. Power for the radio module can be obtained from the VCC pin which is powered in 3.3v when USB power is used or when unregulated power is connected to the RAW pin. If you power your Pro Mini with the RAW pin you can use for instance 4 AA batteries to get 6V. If you use a rechargeable battery you can easily find 3.7V Li-Ion packs. In this case, you can inject directly into the VCC pin but make sure that you've unsoldered the power isolation jumper, see Pro Mini schematic on the Arduino web page. To save more power, you can remove the power led.
 
