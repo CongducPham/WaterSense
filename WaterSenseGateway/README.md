@@ -8,6 +8,9 @@ Please also consult the web page: http://cpham.perso.univ-pau.fr/LORA/RPIgateway
 - [Build your low-cost, long-range IoT device with WAZIUP](https://www.youtube.com/watch?v=YsKbJeeav_M)
 - [Build your low-cost LoRa gateway with WAZIUP](https://www.youtube.com/watch?v=peHkDhiH3lE)
 
+
+**This is a dedicated README file for the WaterSense project in Pakistan.**
+
 Upgrade notice
 --------------
 
@@ -29,19 +32,12 @@ Features
 - support for an embedded DHT22 temperature/humidity sensor to monitor the condition inside the gateway case
 - there is a NoSQL MongoDB support and received data can be saved in the local database if this feature is activated
 - there is an Apache web server with basic PHP forms to visualize graphically the received data of the MongoDB with any web browser
-- the gateway acts as the WiFi access-point. The SSID is WAZIUP_PI_GW_XXXXXXXXXX where XXXXXXXXXX is the last 5 hex bytes of gateway ID: WAZIUP_PI_GW_27EB27F90F for instance. It has IP address 192.168.200.1 and will lease IP addresses in the range of 192.168.200.100 and 192.168.200.120. Just connect to http://192.168.200.1 with a web brower (could be from a smartphone) to get the graphic visualization of the data stored in the gateway's MongoDB database.	
+- the gateway acts as the WiFi access-point. The SSID is WS_PI_GW_XXXXXXXXXX where XXXXXXXXXX is the last 5 hex bytes of gateway ID: WS_PI_GW_27EB27F90F for instance. It has IP address 192.168.200.1 and will lease IP addresses in the range of 192.168.200.100 and 192.168.200.120. Just connect to http://192.168.200.1 with a web brower (could be from a smartphone) to get the graphic visualization of the data stored in the gateway's MongoDB database.	
 - there is the support of Bluetooth connection. A simple Android App running on Android smartphone displays the data stored in the gateway's MongoDB database.
 - a configuration script (scripts/config_gw.sh) helps you configure the gateway with MongoDB, WiFi and Bluetooth features. It is highly recommended to use this script to set your gateway once all the files have been copied.
-- Arduino code for gateway and interactive end-device
-	- code for gateway and interactive end-device are now separated in 2 sketches
-	- the old version is still in folder Arduino_LoRa_Gateway_1_4 and will not be maintained anymore. It will stay at v1.4
-	- Arduino_LoRa_Gateway now contains the gateway code. It is equivalent, in previous version v1.4, to compilation with IS_RCV_GATEWAY.
-	- Arduino_LoRa_InteractiveDevice contains the code for an interactive end-device.  It is equivalent, in previous version v1.4, to compilation with IS_SEND_GATEWAY
-- get the zipped SD card image (Raspbian Jessie)
-	- [raspberrypi-jessie-WAZIUP-demo.dmg.zip](http://cpham.perso.univ-pau.fr/LORA/WAZIUP/raspberrypi-jessie-WAZIUP-demo.dmg.zip)
+- Use the provided zipped SD card image (Raspbian Jessie)
 	- Based on Raspbian Jessie 
-	- Supports Raspberry 1B+, RPI2 and RPI3 (WiFi support is for RPI3. For RPI1 and RPI2 see [here](https://github.com/CongducPham/LowCostLoRaGw/blob/master/gw_full_latest/README.md#wifi-instructions-on-rpi1b-and-rpi2) for modifications to support some WiFi dongles)
-	- Get the zipped image, unzip it, install it on an 8GB SD card, see [this tutorial](https://www.raspberrypi.org/documentation/installation/installing-images/) from www.raspberrypi.org
+	- Supports Raspberry 1B+, RPI2 and RPI3 (WiFi support is for RPI2 with a TP-Link dongle).
 	- Plug the SD card into your Raspberry
 	- Connect a radio module (see http://cpham.perso.univ-pau.fr/LORA/RPIgateway.html)
 	- Power-on the Raspberry
@@ -50,13 +46,14 @@ Features
 		- password: loragateway
 		- **it is strongly advise to change the pi user's password**		
 	- The LoRa gateway starts automatically when RPI is powered on
-	- With an RPI3, the Raspberry will automatically act as a WiFi access point
-		- SSID=WAZIUP_PI_GW_27EB27F90F for instance
+	- The Raspberry will automatically act as a WiFi access point
+		- SSID=WS_PI_GW_27EB27F90F for instance
 		- password=loragateway
 		- **it is strongly advise to change this WiFi password**
 	- Includes most of features described here but a full update with the latest version is **necessary, see below**	
-	- By default, incoming data are uploaded to our [LoRa ThingSpeak test channel](https://thingspeak.com/channels/66794)
-	- Works out-of-the-box with the [Arduino_LoRa_Simple_temp sketch](https://github.com/CongducPham/LowCostLoRaGw/tree/master/Arduino/Arduino_LoRa_Simple_temp)
+	- By default, incoming data are uploaded to the [WaterSense ThingSpeak test channel](https://thingspeak.com/channels/248544)
+	- By default, the gateway is running at 433.3MHz.
+	- Works out-of-the-box with the [Arduino_LoRa_SoilHum sketch](https://github.com/CongducPham/WaterSense/tree/master/sketch/Arduino_LoRa_Simple_SoilHum)
 	
 Latest gateway version 
 ======================
@@ -70,33 +67,31 @@ First option
 
 Get all the repository:
 
-	> git clone https://github.com/CongducPham/LowCostLoRaGw.git
+	> git clone https://github.com/CongducPham/WaterSense.git
 	
 You will get the entire repository:
 
-	pi@raspberrypi:~ $ ls -l LowCostLoRaGw/
-	total 32
-	drwxr-xr-x 7 pi pi  4096 Apr  1 15:38 Arduino
-	-rw-r--r-- 1 pi pi 15522 Apr  1 15:38 README.md	
-	drwxr-xr-x 2 pi pi  4096 Apr  1 15:38 gw_full_latest	
-	drwxr-xr-x 2 pi pi  4096 Apr  1 15:38 tutorials
+	pi@raspberrypi:~ $ ls -l WaterSense/
+	total 0
+	drwxr-xr-x  49 pi  pi  1666 25 avr 11:01 WaterSenseGateway
+	drwxr-xr-x   4 pi  pi   136 25 avr 11:01 sketch
 	
-Create a folder named "lora_gateway" for instance then copy all the files of the LowCostLoRaGw/gw_full_latest folder in it.
+Create a folder named "lora_gateway" for instance then copy all the files of the WaterSense/WaterSenseGateway folder in it.
 
     > mkdir lora_gateway
     > cd lora_gateway
-    > cp -R ../LowCostLoRaGw/gw_full_latest/* .
+    > cp -R ../WaterSense/WaterSenseGateway/* .
     
-Or if you want to "move" the LowCostLoRaGw/gw_full_latest folder, simply do (without creating the lora_gateway folder before):
+Or if you want to "move" the WaterSense/WaterSenseGateway folder, simply do (without creating the lora_gateway folder before):
 
-	> mv LowCostLoRaGw/gw_full_latest ./lora_gateway    
+	> mv WaterSense/WaterSenseGateway ./lora_gateway    
 
 Second option
 -------------
 
 Get only the gateway part:
 
-	> svn checkout https://github.com/CongducPham/LowCostLoRaGw/trunk/gw_full_latest lora_gateway
+	> svn checkout https://github.com/CongducPham/WaterSense/trunk/WaterSenseGateway lora_gateway
 	
 That will create the lora_gateway folder and get all the file of (GitHub) LowCostLoRaGw/gw_full_latest in it. Then:
 
@@ -116,48 +111,13 @@ With the latest gateway version on the github, you also have in lora_gateway/scr
 
 	> ./update_gw.sh
 	
-If you have an existing /home/pi/lora_gateway folder, then it will preserve all you existing configuration files (i.e. key_*, global_conf.json, local_conf.json, clouds.json and radio.makefile). As the repository does not have a gateway_id.txt file, it will also preserve your gateway id.
+If you have an existing /home/pi/lora_gateway folder, then it will preserve all you existing configuration files (i.e. key_*, gateway_conf.json, clouds.json and radio.makefile). As the repository does not have a gateway_id.txt file, it will also preserve your gateway id.
 
 **Note that you can also use this script to install a completely new gateway with the latest gateway version** by downloading from the github the gw_full_latest/scripts/update_gw.sh script (switch in raw mode and save the script on your computer), copy it on your Raspberry gateway (using scp for instance) in /home/pi and then simply run the script (you may need to add execution right with chmod +x update_gw.sh).
 
 Upgrade notice
 --------------
-Starting Apr 2nd 2017, the gateway configuration files have changed. There is now only one configuration file, gateway_conf.json, instead of two, global_conf.json and local_conf.json. If you have a gateway version prior to Apr 2nd, 2017, then you can still use the update_gw_sh scripts but then you have to manually enter your gateway configuration setting, in global_conf.json and local_conf.json, into the new gateway_conf.json file.
-
-Your global_conf.json file may look like:
-
-	{
-		"mode" : 1,
-		"bw" : 500,
-		"cr" : 5,
-		"sf" : 12,
-		"ch" : -1,
-		"freq" : -1,
-		"ignorecomment" : false,
-		"loggw" : false,
-		"wappkey" : false,
-		"raw" : false,
-		"aes" : false,
-		"log_post_processing" : true
-	}
-
-and your local_conf.json may look like:
-
-	{
-		"gateway_conf" : {
-			"gateway_ID" : "00000027EB27F90F",
-			"ref_latitude" : "my_lat",
-			"ref_longitude" : "my_long",
-			"dht22" : 0,
-			"dht22_mongo": false,
-			"downlink" : 0,
-			"status" : 600,
-			"aux_radio" : 0
-		},
-		"log_conf" : {
-			"log_weekly" : false
-		}
-	}
+Starting Apr 2nd 2017, the gateway configuration files have changed. There is now only one configuration file, gateway_conf.json, instead of two, global_conf.json and local_conf.json. 
 
 The format of the new gateway_conf.json file is as follows:
 
@@ -168,7 +128,7 @@ The format of the new gateway_conf.json file is as follows:
 			"cr" : 5,
 			"sf" : 12,
 			"ch" : -1,
-			"freq" : -1
+			"freq" : 433.3
 		},
 		"gateway_conf" : {
 			"gateway_ID" : "00000027EB27F90F",
@@ -196,25 +156,7 @@ The format of the new gateway_conf.json file is as follows:
 			"contact_sms":["+33XXXXXXXXX","+33XXXXXXXXX"],
 			"gammurc_file":"/home/pi/.gammurc"
 		}	
-	}
-	
-Therefore, to upgrade, you have to (1) replace the whole "gateway_conf" section of gateway_conf.json by the "gateway_conf" section of local_conf_json, (2) report the first 6 fields of global_conf.json into the "radio_conf" section of gateway_conf.json, (3) report the last 4 fields of global_conf.json (thus omitting both "loggw" and "ignorecomment") into the "gateway_conf" section of gateway_conf.json and, (4) report the "log_weekly" field in the "log_conf" of local_conf.json into the "gateway_conf" section of gateway_conf.json.
-
-Install Raspbian Wheezy or Jessie
-=================================
-
-Fisrt install a Raspberry with Raspbian, Jessie is recommended.
-
-then (you need to have Internet access on your Raspberry):
-
-	> sudo apt-get update
-	> sudo apt-get upgrade
-
-Jessie has been tested on RPI1, RPI2 and RPI3, and works great.
-
-Wheezy has been tested on RPI1 and RPI2 and works great. Wheezy on RPI3 is not recommended because built-in WiFi and Bluetooth will not work properly.
-
-We recommend buying either RPI2 or RPI3. RPI3 with Jessie has built-in WiFi and Bluetooth so it is definitely a good choice. In addition RPI3 with Jessie will have a better support lifetime. 
+	}	
 
 Connect a radio module to Raspberry
 ===================================
@@ -287,107 +229,48 @@ Practically, we only use either "M" (Max) or "x" (extreme) to have maximum range
 	//#define PABOOST
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////  
 
-Uncomment PABOOST if you have a HopeRF RFM92W or RFM95W, or a Modtronix inAir9B (if inAir9, leave commented) or a NiceRF1276. If you have another non listed radio module, try first by leaving PABOOST commented, then see whether the packet reception is correct with a reasonably high SNR (such as 6 to 10 dB) at some meters of the gateway. If not, then try with PABOOST uncommented.
+Uncomment PABOOST if you have a HopeRF RFM92W or RFM95W, or a Modtronix inAir9B (if inAir9 or inAir4, leave commented) or a NiceRF1276. If you have another non listed radio module, try first by leaving PABOOST commented, then see whether the packet reception is correct with a reasonably high SNR (such as 6 to 10 dB) at some meters of the gateway. If not, then try with PABOOST uncommented.
 
-First try: a simple Ping-Pong program example
-=============================================
+A simple Soil Monitoring (2 sensors) that periodically report the soil moisture values to the gateway
+=====================================================================================================
 
-As suggested by some people, we provide here a simple Ping-Pong program to upload on an Arduino board. First, install the Arduino IDE 1.6.6. Check that the AVR board library is not above 1.6.9 as there might be some compilation issue otherwise. Then, in your sketch folder, copy the content of the Arduino folder of the distribution.
+See an example [video here](https://www.youtube.com/watch?v=YsKbJeeav_M) demonstrating most of the steps for building the device.
 
-Run the gateway with:
+First, install the Arduino IDE 1.6.6. Check that the AVR board library is not above 1.6.9 as there might be some compilation issue otherwise. Then, in your sketch folder, copy the content of the sketch folder of the distribution.
 
-	> sudo ./lora_gateway
-	
-With the Arduino IDE, open the Arduino_LoRa_Ping_Pong sketch compile it and upload to an Arduino board. Check your radio module first, see "Connect a radio module to your end-device" above.
-
-The end-device runs in LoRa mode 1 and has address 8. Open the Serial Monitor (38400 bauds) to see the output of the Arduino. It will send "Ping" to the gateway by requesting an ACK every 10s. If the ACK is received then it will display "Pong received from gateway!" otherwise it displays "No Pong!".
-
-Note that in most operational scenarios, requesting ACK from the gateway is costly. Look at the next examples to see how we usually send data without requesting ACK.
-
-**Notice for low-cost/clone Arduino boards**. If you get a low-cost Arduino board, such as those sold by most of Chinese manufacturer, the USB connectivity is probably based on the CH340 or CH341. To make your low-cost Arduino visible to your Arduino IDE, you need the specific driver. Look at http://sparks.gogo.co.nz/ch340.html or http://www.microcontrols.org/arduino-uno-clone-ch340-ch341-chipset-usb-drivers/. For MacOS, you can look at http://www.mblock.cc/posts/run-makeblock-ch340-ch341-on-mac-os-sierra which works for MacOS up to Sierra. For MacOS user that have the previous version of CH34x drivers and encountering kernel panic with Sierra, don't forget to delete previous driver installation: "sudo rm -rf /System/Library/Extensions/usb.kext".
-
-
-A simple end-device example that periodically sends temperature to the gateway
-==============================================================================
-
-See the [video here](https://www.youtube.com/watch?v=YsKbJeeav_M).
-
-First, install the Arduino IDE 1.6.6. Check that the AVR board library is not above 1.6.9 as there might be some compilation issue otherwise. Then, in your sketch folder, copy the content of the Arduino folder of the distribution.
-
-With the Arduino IDE, open the Arduino_LoRa_Simple_temp sketch, compile it and upload to an Arduino board. Check your radio module first, see "Connect a radio module to your end-device" above.
+With the Arduino IDE, open the Arduino_LoRa_SoilHum sketch, compile it and upload to an Arduino board. Check your radio module first, see "Connect a radio module to your end-device" above.
 
 The end-device runs in LoRa mode 1 and has address 8. It will send data to the gateway.
 
 The default configuration uses an application key filter set to [5, 6, 7, 8].
 
-Use a temperature sensor (e.g. LM35DZ) and plugged in pin A0 (analog 0). You can use a power pin to power your temperature sensor if you are not concerned about power saving. Otherwise, you can use digital 8 (the sketch set this pin HIGH when reading value, then sets it back to LOW) and activate low power mode (uncomment #define LOW_POWER), see below. 
+Use 2 soil moisture sensors ([such as these one](https://fr.aliexpress.com/item/10pcs-lot-soil-the-hygrometer-detection-module-soil-moisture-sensor-Robot-smart-car-For-UNO-R3/1966071577.html?spm=2114.06010108.3.1.RhS56X&ws_ab_test=searchweb0_0,searchweb201602_1_10152_10065_10151_10068_10136_10137_10060_10138_10155_10062_10156_10154_10056_10055_10054_10059_10099_10103_10102_10096_10148_10147_10052_10053_10142_10107_10050_10051_10084_10083_10080_10082_10081_10177_10110_10111_10112_10113_10114_10181_10037_10033_10032_10078_10079_10077_10073_10070_10123_10124-10051_10033_10037_10077,searchweb201603_10,ppcSwitch_5&btsid=d5edd899-67a7-4643-a24b-b9736627411a&algo_expid=ac90f355-e52d-4eda-9edb-7b6fd638f1ad-0&algo_pvid=ac90f355-e52d-4eda-9edb-7b6fd638f1ad)) and plugged their data pin into pin A0 and pin A1 (analog 0 and analog 1). Use digital 9 and 8 (the sketch set these pins HIGH when reading value, then sets them back to LOW) to power your sensors. 
 
 For low-power applications the Pro Mini from Sparkfun is certainly a good choice. This board can be either in the 5V or 3.3V version. With the Pro Mini, it is better to really use the 3.3V version running at 8MHz as power consumption will be reduced. Power for the radio module can be obtained from the VCC pin which is powered in 3.3v when USB power is used or when unregulated power is connected to the RAW pin. If you power your Pro Mini with the RAW pin you can use for instance 4 AA batteries to get 6V. If you use a rechargeable battery you can easily find 3.7V Li-Ion packs. In this case, you can inject directly into the VCC pin but make sure that you've unsoldered the power isolation jumper, see Pro Mini schematic on the Arduino web page. To save more power, you can remove the power led.
 
-The current low-power version for Arduino board use the RocketScream Low Power library (https://github.com/rocketscream/Low-Power) and can support most Arduino platforms although the Pro Mini platform will probably exhibit the best energy saving (we measured 124uA current in sleep mode with the power led removed). You can buid the low-power version by uncommenting the LOW_POWER compilation define statement. Then set "int idlePeriodInMin = 10;" to the number of minutes between 2 wake-up. By default it is 10 minutes. There are good web site describing low-power optimization for the pro Mini: http://www.home-automation-community.com/arduino-low-power-how-to-run-atmega328p-for-a-year-on-coin-cell-battery/ or https://andreasrohner.at/posts/Electronics/How-to-modify-an-Arduino-Pro-Mini-clone-for-low-power-consumption/. 
+The current low-power version for Arduino board use the RocketScream Low Power library (https://github.com/rocketscream/Low-Power) and can support most Arduino platforms although the Pro Mini platform will probably exhibit the best energy saving (we measured 124uA current in sleep mode with the power led removed). You can buid the low-power version by uncommenting the LOW_POWER compilation define statement. Then set "int idlePeriodInMin = 30;" to the number of minutes between 2 wake-up. By default it is 30 minutes. There are good web site describing low-power optimization for the pro Mini: http://www.home-automation-community.com/arduino-low-power-how-to-run-atmega328p-for-a-year-on-coin-cell-battery/ or https://andreasrohner.at/posts/Electronics/How-to-modify-an-Arduino-Pro-Mini-clone-for-low-power-consumption/. 
 
 For the special case of Teensy boards (LC/31/32/35/36), the power saving mode uses the excellent work of Collin Duffy with the Snooze library included by the Teensyduino package. You can upgrade the Snooze library from the github (https://github.com/duff2013/Snooze) as version 6 is required to handle the new Teensy 35/36 boards. With the Teensy, you can further use the HIBERNATE mode by uncommenting LOW_POWER_HIBERNATE in the temperature example.
 
 For the special of the Arduino Zero, waking up the board from deep sleep mode is done with the RTC. Therefore the RTCZero library from https://github.com/arduino-libraries/RTCZero is used and you need to install it before being able to compile the example for the Arduino Zero.
 
-Depending on the sensor type, the computation to get the real temperature may be changed accordingly. Here is the instruction for the LM35DZ: http://www.instructables.com/id/ARDUINO-TEMPERATURE-SENSOR-LM35/
-
 The default configuration also use the EEPROM to store the last packet sequence number in order to get it back when the sensor is restarted/rebooted. If you want to restart with a packet sequence number of 0, just comment the line "#define WITH_EEPROM"
 
-Once flashed, the Arduino temperature sensor will send to the gateway the following message \\!#3#20.4 (20.4 is the measured temperature so you may not have the same value) prefixed by the application key every 10 minutes (with some randomization interval). This will trigger at the processing stage of the gateway the logging on the default ThinkSpeak channel (the test channel we provide) in field 3. At the gateway, 20.4 will be recorded on the provided ThingSpeak test channel in field 3 of the channel. If you go to https://thingspeak.com/channels/66794 you should see the reported value. 
+Once flashed, the Arduino soil monitoring sensor will send to the gateway the following message \\!SM1/567/SM2/678 (567 and 678 are the measured moisture level so you may not have the same value) prefixed by the application key every 30 minutes (with some randomization interval). This will trigger at the processing stage of the gateway the logging on the default ThinkSpeak channel (the test channel we provide). At the gateway, 567 and 678 will be recorded on the provided ThingSpeak test channel in field 1 and 2 of the channel. If you go to https://thingspeak.com/channels/248544 you should see the reported value. 
 
 The program has been tested on Arduino Uno, Mega2560, Nano, Pro Mini, Mini, Due, Zero.  We also tested on the Teensy3.1/3.2 and the Ideetron Nexus. The SX1272 lib has been modified to change the SPI_SS pin from 2 to 10 when you compile for the Pro Mini, Mini (Nexus), Nano or Teensy. 
 
 **Notice for low-cost/clone Arduino boards**. If you get a low-cost Arduino board, such as those sold by most of Chinese manufacturer, the USB connectivity is probably based on the CH340 or CH341. To make your low-cost Arduino visible to your Arduino IDE, you need the specific driver. Look at http://sparks.gogo.co.nz/ch340.html or http://www.microcontrols.org/arduino-uno-clone-ch340-ch341-chipset-usb-drivers/. For MacOS, you can look at http://www.mblock.cc/posts/run-makeblock-ch340-ch341-on-mac-os-sierra which works for MacOS up to Sierra. For MacOS user that have the previous version of CH34x drivers and encountering kernel panic with Sierra, don't forget to delete previous driver installation: "sudo rm -rf /System/Library/Extensions/usb.kext".
-
-
-An interactive end-device for sending LoRa messages with the Arduino IDE
-========================================================================
-
-With the Arduino IDE, open the Arduino_LoRa_InteractiveDevice sketch. Then compile it and upload to an Arduino board. It is better to use a more powerful Arduino platform for building the interactive device otherwise stability issues can occur (and especially with more RAM memory such as a MEGA, the Uno, ATMega328P, will be very unstable because of the small amount of memory).
-
-By default, the interactive end-device has address 6 and runs in LoRa mode 1.
-
-Enter "\\!SGSH52UGPVAUYG3S#1#21.6" (without the quotes) in the input window and press RETURN
-
-The command will be sent to the gateway and you should see the gateway pushing the data to the ThingSpeak test channel. If you go to https://thingspeak.com/channels/66794 you should see the reported value.
-
-When testing with the interactive end-device, you should not use the --wappkey option for the post_processing_gw.py post-processing python script otherwise your command will not be accepted as only text string without logging services will be received and displayed when --wappkey is set.
-
-	> sudo ./lora_gateway | python ./post_processing_gw.py | python ./log_gw
-
-Use an Arduino as a LoRa gateway
-================================
-
-The gateway can also be based on an Arduino board, as described in the web page. With the Arduino IDE, open the Arduino_LoRa_Gateway sketch, compile the code and upload to an Arduino board. Then follow instructions on how to use the Arduino board as a gateway. It is better to use a more powerful (and with more RAM memory such as the MEGA) Arduino platform for building the gateway.
 
 Running in 433MHz band
 ======================
 
 When your radio module can run in the 433MHz band (for instance when the radio is based on SX1276 or SX1278 chip, such as the inAir4 from Modtronics) then you can test running at 433MHz as follows:
 
-- select line "#define BAND433" in Arduino_LoRa_temp or Arduino_LoRa_Simple_temp
-- compile the lora_gateway.cpp with "#define BAND433"
-- or simply run your gateway with "lora_gateway --mode 1 --freq 433.3" to be on the same setting than Arduino_LoRa_temp and Arduino_LoRa_Simple_temp
+- select line "#define BAND433" in Arduino_LoRa_SoilHum
+- set in gateway_conf.json the freq to be 433.3
+	- "freq" : 433.3
 - there are 4 channels in the 433MHz band: 433.3MHz as CH_00_433, 433.6MHz as CH_01_433, 433.9MHz as CH_02_433 and 434.3MHz as CH_03_433 
-
-Mounting your Dropbox folder
-============================
-
-With sshfs:
-
-- look at http://mitchtech.net/dropbox-on-raspberry-pi-via-sshfs/. No need of "sudo gpasswd -a pi fuse" on Jessie.
-	
-	> sudo apt-get install sshfs
-	
-- then allow option 'user_allow_other' in /etc/fuse.conf
-	
-with Dropbox uploader:
-
-- look at http://anderson69s.com/2014/02/18/raspberry-pi-dropbox/
-- look at http://raspi.tv/2013/how-to-use-dropbox-with-raspberry-pi
-- look at https://github.com/andreafabrizi/Dropbox-Uploader
-- but not tested yet and not supported yet	
 
 ANNEX.A: LoRa mode and predefined channels
 ==========================================
@@ -463,8 +346,8 @@ WARNING
 - Although 900MHz band is supported (mostly for the US ISM band), the library does not implement the frequency hopping mechanism nor the limited dwell time (e.g. 400ms per transmission).
 
 
-Tutorial materials
-=======================
+Tutorial materials (from WAZIUP)
+================================
 
 Go to https://github.com/CongducPham/tutorials and look for the "Low-cost-LoRa-GW-step-by-step" tutorial.
 
