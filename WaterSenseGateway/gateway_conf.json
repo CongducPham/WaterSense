@@ -5,7 +5,7 @@
 		"cr" : 5,
 		"sf" : 12,
 		"ch" : -1,
-		"freq" : -1
+		"freq" : 433.3
 	},
 	"gateway_conf" : {
 		"gateway_ID" : "000000XXXXXXXXXX",
