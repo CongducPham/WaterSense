@@ -1,5 +1,5 @@
 #-------------------------------------------------------------------------------
-# Copyright 2016 Congduc Pham, University of Pau, France.
+# Copyright 2017 Congduc Pham, University of Pau, France.
 # 
 # Congduc.Pham@univ-pau.fr
 #
@@ -30,20 +30,23 @@ import re
 
 # get key definition from external file to ease
 # update of cloud script in the future
-import key_WAZIUP
+import key_WAZIUP_WS as key_WAZIUP
+
+try:
+	key_WAZIUP.source_list
+except AttributeError:
+	key_WAZIUP.source_list=[]	
 
 ####################################################
 #To create a new entitiy
-# curl http://broker.waziup.io/v2/entities -s -S --header 'Content-Type: application/json' --header 'Fiware-Service:waziup' --header 'Fiware-ServicePath:/UPPA' -X POST -d '{ "id": "Sensor1", "type": "SensingDevice", "TC": { "value": 23, "type": "Number" }, "PR": { "value": 720, "type": "Number" } }'
-
-#curl http://broker.waziup.io/v2/entities -s -S --header 'Content-Type: application/json' --header 'Fiware-Service:waziup' --header 'Fiware-ServicePath:/UPPA' -X POST -d '{ "id": "Sensor1", "type": "SensingDevice", "TC": { "value": 23, "type": "Number" }, "PR": { "value": 720, "type": "Number" }, "Owner :  }'
+# curl http://broker.waziup.io/v2/entities -s -S --header 'Content-Type: application/json' --header 'Fiware-Service:watersense' --header 'Fiware-ServicePath:/FARM1/TESTS' -X POST -d '{ "id": "WS_FARM1_Sensor2", "type": "SensingDevice", "SM1": { "value": 567, "type": "Number" }, "SM2": { "value": 678, "type": "Number" } }'
 
 #Further updates of the values are like that:
-# curl http://broker.waziup.io/v2/entities/Sensor1/attrs/TC/value -s -S --header 'Content-Type: text/plain' --header 'Fiware-Service:waziup' --header 'Fiware-ServicePath:/UPPA' -X PUT -d 27
-# curl http://broker.waziup.io/v2/entities/Sensor1/attrs/PR/value -s -S --header 'Content-Type: text/plain' --header 'Fiware-Service:waziup' --header 'Fiware-ServicePath:/UPPA' -X PUT -d 722
+# curl http://broker.waziup.io/v2/entities/WS_FARM1_Sensor2/attrs/SM1/value -s -S --header 'Content-Type: text/plain' --header 'Fiware-Service:watersense' --header 'Fiware-ServicePath:/FARM1/TESTS' -X PUT -d 345
+# curl http://broker.waziup.io/v2/entities/WS_FARM1_Sensor2/attrs/SM2/value -s -S --header 'Content-Type: text/plain' --header 'Fiware-Service:watersense' --header 'Fiware-ServicePath:/FARM1/TESTS' -X PUT -d 789
 
 #To retrieve the last data point inserted:
-# curl http://broker.waziup.io/v2/entities/Sensor1/attrs/TC/value --header 'Fiware-Service:waziup' --header 'Fiware-ServicePath:/UPPA' -X GET
+# curl http://broker.waziup.io/v2/entities/WS_FARM1_Sensor2/attrs/SM1/value --header 'Fiware-Service:watersense' --header 'Fiware-ServicePath:/FARM1/TESTS' -X GET
 ####################################################
 
 #error messages from server
@@ -224,80 +227,84 @@ def main(ldata, pdata, rdata, tdata, gwid):
 	SNR=arr[5]
 	RSSI=arr[6]
 	
-	# this part depends on the syntax used by the end-device
-	# we use: TC/22.4/HU/85...
-	#
-	# but we accept also a_str#b_str#TC/22.4/HU/85... to indicate a Fiware-Service and Fiware-ServicePath
-	# or simply 22.4 in which case, the nomemclature will be DEF
+	if (str(src) in key_WAZIUP.source_list) or (len(key_WAZIUP.source_list)==0):
+	
+		# this part depends on the syntax used by the end-device
+		# we use: TC/22.4/HU/85...
+		#
+		# but we accept also a_str#b_str#TC/22.4/HU/85... to indicate a Fiware-Service and Fiware-ServicePath
+		# or simply 22.4 in which case, the nomemclature will be DEF
 		 		
-	# get number of '#' separator
-	nsharp=ldata.count('#')
-	nslash=0
+		# get number of '#' separator
+		nsharp=ldata.count('#')
+		nslash=0
 				
-	# no separator
-	if nsharp==0:
-		# will use default Fiware-Service and Fiware-ServicePath
-		data=['','']
+		# no separator
+		if nsharp==0:
+			# will use default Fiware-Service and Fiware-ServicePath
+			data=['','']
 
-		# get number of '/' separator on ldata
-		nslash = ldata.count('/')
+			# get number of '/' separator on ldata
+			nslash = ldata.count('/')
 				
-		# contains ['', '', "s1", s1value, "s2", s2value, ...]
-		data_array = data + re.split("/", ldata)		
-	else:
-		data_array = re.split("#", ldata)
+			# contains ['', '', "s1", s1value, "s2", s2value, ...]
+			data_array = data + re.split("/", ldata)		
+		else:
+			data_array = re.split("#", ldata)
 		
-		# only 1 separator
-		if nsharp==1:
-			# insert '' to indicate default Fiware-Service
-			# as we assume that the only parameter indicate the Fiware-ServicePath
-			data_array.insert(0,'');
-			# if the length is greater than 2
-			if len(data_array[1])<3:
-				data_array[1]=''	
+			# only 1 separator
+			if nsharp==1:
+				# insert '' to indicate default Fiware-Service
+				# as we assume that the only parameter indicate the Fiware-ServicePath
+				data_array.insert(0,'');
+				# if the length is greater than 2
+				if len(data_array[1])<3:
+					data_array[1]=''	
 
-		# we have 2 separators
-		if nsharp==2:
-			# if the length of BOTH fields is greater than 2 then we take them into account
-			if len(data_array[0])<3 or len(data_array[1])<3:
-				data_array[0]=''
-				data_array[1]=''
+			# we have 2 separators
+			if nsharp==2:
+				# if the length of BOTH fields is greater than 2 then we take them into account
+				if len(data_array[0])<3 or len(data_array[1])<3:
+					data_array[0]=''
+					data_array[1]=''
 									
-		# get number of '/' separator on data_array[2]
-		# because ldata may contain '/' as Fiware-ServicePath name
-		nslash = data_array[2].count('/')
+			# get number of '/' separator on data_array[2]
+			# because ldata may contain '/' as Fiware-ServicePath name
+			nslash = data_array[2].count('/')
 	
-		# then reconstruct data_array
-		data_array=[data_array[0],data_array[1]]+re.split("/", data_array[2])
+			# then reconstruct data_array
+			data_array=[data_array[0],data_array[1]]+re.split("/", data_array[2])
 				
-		# at the end data_array contains
-		# ["Fiware-Service", "Fiware-ServicePath", "s1", s1value, "s2", s2value, ...]
+			# at the end data_array contains
+			# ["Fiware-Service", "Fiware-ServicePath", "s1", s1value, "s2", s2value, ...]
 		
-	# just in case we have an ending CR or 0
-	data_array[len(data_array)-1] = data_array[len(data_array)-1].replace('\n', '')
-	data_array[len(data_array)-1] = data_array[len(data_array)-1].replace('\0', '')	
+		# just in case we have an ending CR or 0
+		data_array[len(data_array)-1] = data_array[len(data_array)-1].replace('\n', '')
+		data_array[len(data_array)-1] = data_array[len(data_array)-1].replace('\0', '')	
 																		
-	nomenclatures = []
-	# data to send
-	data = []
-	data.append(data_array[0]) #Fiware-service (if '' default)
-	data.append(data_array[1]) #Fiware-servicePath (if '' default)
+		nomenclatures = []
+		# data to send
+		data = []
+		data.append(data_array[0]) #Fiware-service (if '' default)
+		data.append(data_array[1]) #Fiware-servicePath (if '' default)
 		
-	if nslash==0:
-		# old syntax without nomenclature key, so insert only one key
-		# we use DEF
-		nomenclatures.append("DEF")
-		data.append(data_array[2])
-	else:
-		# completing nomenclatures and data
-		i=2
-		while i < len(data_array)-1 :
-			nomenclatures.append(data_array[i])
-			data.append(data_array[i+1])
-			i += 2
+		if nslash==0:
+			# old syntax without nomenclature key, so insert only one key
+			# we use DEF
+			nomenclatures.append("DEF")
+			data.append(data_array[2])
+		else:
+			# completing nomenclatures and data
+			i=2
+			while i < len(data_array)-1 :
+				nomenclatures.append(data_array[i])
+				data.append(data_array[i+1])
+				i += 2
 	
-	# upload data to WAZIUP
-	WAZIUP_uploadData(nomenclatures, data, str(src))		
+		# upload data to WAZIUP
+		WAZIUP_uploadData(nomenclatures, data, str(src))
+	else:
+		print "Source is not is source list, not sending with CloudWAZIUP-WS.py"				
 
 if __name__ == "__main__":
 	main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])

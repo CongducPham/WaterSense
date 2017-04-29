@@ -1,2 +1,4 @@
-# WaterSense LoRa demo channel
-_def_thingspeak_channel_key='H95DRC6RZ6J2CUQF'
+# LoRa test channel
+_def_thingspeak_channel_key='SGSH52UGPVAUYG3S'
+
+source_list=[]
