@@ -93,7 +93,7 @@ Get only the gateway part:
 
 	> svn checkout https://github.com/CongducPham/WaterSense/trunk/WaterSenseGateway lora_gateway
 	
-That will create the lora_gateway folder and get all the file of (GitHub) LowCostLoRaGw/gw_full_latest in it. Then:
+That will create the lora_gateway folder and get all the file of (GitHub) WaterSense/WaterSenseGateway in it. Then:
 
 	> cd lora_gateway
 
@@ -240,7 +240,7 @@ First, install the Arduino IDE 1.6.6. Check that the AVR board library is not ab
 
 With the Arduino IDE, open the Arduino_LoRa_Simple_SoilHum sketch, compile it and upload to an Arduino board. Check your radio module first, see "Connect a radio module to your end-device" above.
 
-The end-device runs in LoRa mode 1 and has address 8. It will send data to the gateway.
+The end-device runs in LoRa mode 1 and has address 2. It will send data to the gateway using 433MHz band.
 
 The default configuration uses an application key filter set to [5, 6, 7, 8].
 
@@ -248,9 +248,9 @@ Use 2 soil moisture sensors ([such as this one](https://fr.aliexpress.com/item/1
 
 For low-power applications the Pro Mini from Sparkfun is certainly a good choice. This board can be either in the 5V or 3.3V version. With the Pro Mini, it is better to really use the 3.3V version running at 8MHz as power consumption will be reduced. Power for the radio module can be obtained from the VCC pin which is powered in 3.3v when USB power is used or when unregulated power is connected to the RAW pin. If you power your Pro Mini with the RAW pin you can use for instance 4 AA batteries to get 6V. If you use a rechargeable battery you can easily find 3.7V Li-Ion packs. In this case, you can inject directly into the VCC pin but make sure that you've unsoldered the power isolation jumper, see Pro Mini schematic on the Arduino web page. To save more power, you can remove the power led.
 
-The current low-power version for Arduino board use the RocketScream Low Power library (https://github.com/rocketscream/Low-Power) and can support most Arduino platforms although the Pro Mini platform will probably exhibit the best energy saving (we measured 124uA current in sleep mode with the power led removed). You can buid the low-power version by uncommenting the LOW_POWER compilation define statement. Then set "int idlePeriodInMin = 30;" to the number of minutes between 2 wake-up. By default it is 30 minutes. There are good web site describing low-power optimization for the pro Mini: http://www.home-automation-community.com/arduino-low-power-how-to-run-atmega328p-for-a-year-on-coin-cell-battery/ or https://andreasrohner.at/posts/Electronics/How-to-modify-an-Arduino-Pro-Mini-clone-for-low-power-consumption/. 
+The current low-power version for Arduino board use the RocketScream Low Power library (https://github.com/rocketscream/Low-Power) and can support most Arduino platforms although the Pro Mini platform will probably exhibit the best energy saving (we measured 124uA current in sleep mode with the power led removed). You can buid the low-power version by uncommenting the LOW_POWER compilation define statement. Then set "int idlePeriodInMin = 60;" to the number of minutes between 2 wake-up. By default it is 60 minutes. There are good web site describing low-power optimization for the pro Mini: http://www.home-automation-community.com/arduino-low-power-how-to-run-atmega328p-for-a-year-on-coin-cell-battery/ or https://andreasrohner.at/posts/Electronics/How-to-modify-an-Arduino-Pro-Mini-clone-for-low-power-consumption/. 
 
-For the special case of Teensy boards (LC/31/32/35/36), the power saving mode uses the excellent work of Collin Duffy with the Snooze library included by the Teensyduino package. You can upgrade the Snooze library from the github (https://github.com/duff2013/Snooze) as version 6 is required to handle the new Teensy 35/36 boards. With the Teensy, you can further use the HIBERNATE mode by uncommenting LOW_POWER_HIBERNATE in the temperature example.
+For the special case of Teensy boards (LC/31/32/35/36), the power saving mode uses the excellent work of Collin Duffy with the Snooze library included by the Teensyduino package. You can upgrade the Snooze library from the github (https://github.com/duff2013/Snooze) as version 6 is required to handle the new Teensy 35/36 boards. With the Teensy, you can further use the HIBERNATE mode by uncommenting LOW_POWER_HIBERNATE in the example.
 
 For the special of the Arduino Zero, waking up the board from deep sleep mode is done with the RTC. Therefore the RTCZero library from https://github.com/arduino-libraries/RTCZero is used and you need to install it before being able to compile the example for the Arduino Zero.
 
