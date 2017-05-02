@@ -17,7 +17,7 @@
  *  along with the program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *****************************************************************************
- * last update: Apr 25th, 2017 for the WaterSense project by C. Pham
+ * last update: May 2nd, 2017 for the WaterSense project by C. Pham
  * 
  * Sensor 1 is connected to digital 9 for power and A0 for output value
  * Sensor 2 is connected to digital 8 for power and A1 for output value
@@ -93,7 +93,9 @@ const uint32_t DEFAULT_CHANNEL=CH_00_433;
 ///////////////////////////////////////////////////////////////////
 // CHANGE HERE THE LORA MODE, NODE ADDRESS 
 #define LORAMODE  1
-#define node_addr 6
+// you need to change the node address for each sensor in the same organization/farm
+// node address starts at 2 and ends at 255
+#define node_addr 2
 //////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////
@@ -103,7 +105,7 @@ const uint32_t DEFAULT_CHANNEL=CH_00_433;
 
 ///////////////////////////////////////////////////////////////////
 // CHANGE HERE THE TIME IN MINUTES BETWEEN 2 READING & TRANSMISSION
-unsigned int idlePeriodInMin = 30;
+unsigned int idlePeriodInMin = 60;
 ///////////////////////////////////////////////////////////////////
 
 // SENSORS DEFINITION 
