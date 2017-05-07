@@ -79,6 +79,7 @@ echo "D- edit clouds.json                                                  +"
 echo "---------------------------------------------------------* Update *--+"
 echo "U- update to latest version on repository                            +"
 echo "V- download and install a file                                       +"
+echo "W- run a command                                                     +"
 echo "-----------------------------------------------------------* kill *--+"
 echo "K- kill all gateway related processes                                +"
 echo "k- kill rfcomm-server process                                        +"
@@ -275,6 +276,16 @@ if [ "$choice" = "V" ]
 			wget --backups=1 $filename_url
 			echo "Done"
 fi
+
+if [ "$choice" = "W" ]
+		then
+			echo "Run a command"
+			echo "Enter the command to run:"
+			read command_line			
+			eval $command_line
+			echo "Done"
+fi
+
 
 if [ "$choice" = "K" ] 
         then
