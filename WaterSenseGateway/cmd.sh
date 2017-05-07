@@ -40,8 +40,8 @@ then
 	echo "Will write 000000$macaddr into gateway_id.txt"
 	echo "000000$macaddr" > gateway_id.txt
 	echo "Done"
-	echo "Replacing gw id in local_conf.json"
-	sed -i -- 's/"000000.*"/"000000'"$macaddr"'"/g' local_conf.json
+	echo "Replacing gw id in gateway_conf.json"
+	sed -i -- 's/"000000.*"/"000000'"$macaddr"'"/g' gateway_conf.json
 	echo "Done"	
 fi
 
@@ -76,6 +76,9 @@ echo "A- show gateway_conf.json                                            +"
 echo "B- edit gateway_conf.json                                            +"
 echo "C- show clouds.json                                                  +"
 echo "D- edit clouds.json                                                  +"
+echo "---------------------------------------------------------* Update *--+"
+echo "U- update to latest version on repository                            +"
+echo "V- download and install a file                                       +"
 echo "-----------------------------------------------------------* kill *--+"
 echo "K- kill all gateway related processes                                +"
 echo "k- kill rfcomm-server process                                        +"
@@ -195,31 +198,31 @@ fi
 if [ "$choice" = "l" ] 
 	then
 		echo "List LoRa reception indications"
-		grep "rxlora" ../Dropbox/LoRa-test/post-processing_$gatewayid.log
+		grep -a "rxlora" ../Dropbox/LoRa-test/post-processing_$gatewayid.log
 fi
 
 if [ "$choice" = "m" ] 
 	then
 		echo "List radio module reset"
-		grep "Resetting radio module" ../Dropbox/LoRa-test/post-processing_$gatewayid.log
+		grep -a "Resetting radio module" ../Dropbox/LoRa-test/post-processing_$gatewayid.log
 fi
 
 if [ "$choice" = "n" ] 
 	then
 		echo "List boot indications"
-		grep "**********Power ON" ../Dropbox/LoRa-test/post-processing_$gatewayid.log
+		grep -a "**********Power ON" ../Dropbox/LoRa-test/post-processing_$gatewayid.log
 fi
 
 if [ "$choice" = "o" ] 
 	then
 		echo "List post-processing status"
-		grep "post status: gw ON" ../Dropbox/LoRa-test/post-processing_$gatewayid.log
+		grep -a "post status: gw ON" ../Dropbox/LoRa-test/post-processing_$gatewayid.log
 fi
 
 if [ "$choice" = "p" ] 
 	then
 		echo "List low-level gateway status"
-		grep "Low-level gw status ON" ../Dropbox/LoRa-test/post-processing_$gatewayid.log
+		grep -a "Low-level gw status ON" ../Dropbox/LoRa-test/post-processing_$gatewayid.log
 fi
 
 if [ "$choice" = "A" ] 
@@ -254,6 +257,23 @@ if [ "$choice" = "D" ]
                 	else
                 		echo "Error: clouds.json does not exist"
                 fi	
+fi
+
+if [ "$choice" = "U" ]
+		then
+			echo "Updating to latest version of gateway, preserving your local configuration file"
+			pushd scripts
+			./update_gw.sh
+			popd
+fi
+
+if [ "$choice" = "V" ]
+		then
+			echo "Download and install a file"
+			echo "Enter the URL of the file:"
+			read filename_url			
+			wget --backups=1 $filename_url
+			echo "Done"
 fi
 
 if [ "$choice" = "K" ] 

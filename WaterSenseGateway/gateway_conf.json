@@ -11,7 +11,7 @@
 		"gateway_ID" : "000000XXXXXXXXXX",
 		"ref_latitude" : "my_lat",
 		"ref_longitude" : "my_long",
-		"wappkey" : false,
+		"wappkey" : true,
 		"raw" : false,
 		"aes" : false,
 		"log_post_processing" : true,

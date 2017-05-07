@@ -5,7 +5,7 @@
 			"name":"Local gateway MongoDB",
 			"script":"python CloudMongoDB.py",
 			"type":"database",
-			"max_months_to_store":2,
+			"max_months_to_store":4,
 			"enabled":true
 		},
 		{	
