@@ -21,14 +21,14 @@
 			"script":"python CloudWAZIUP_WS.py",
 			"type":"iotcloud",			
 			"write_key":"",
-			"enabled":false
+			"enabled":true
 		},			
 		{	
 			"name":"ThingSpeak cloud",
 			"script":"python CloudThingSpeak.py",
 			"type":"iotcloud",			
 			"write_key":"",
-			"enabled":true
+			"enabled":false
 		},
 		{	
 			"name":"GroveStreams cloud",
