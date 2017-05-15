@@ -912,6 +912,12 @@ while True:
 			#the data prefix is inserted by the gateway
 			#do not modify, unless you know what you are doing and that you modify lora_gateway (comment WITH_DATA_PREFIX)
 			print "--> got data prefix"
+			
+            if SNR < -20:
+				print "--> SNR too low, discarding data"
+				sys.stdin.readline()
+				continue			
+			
 			_hasRadioData=True
 			
 			#we actually need to use DATA_PREFIX in order to differentiate data from radio coming to the post-processing stage
