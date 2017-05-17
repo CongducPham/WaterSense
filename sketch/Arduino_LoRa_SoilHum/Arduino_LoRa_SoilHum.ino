@@ -218,7 +218,7 @@ unsigned char Direction = 0x00;
 #endif
 
 unsigned long nextTransmissionTime=0L;
-uint8_t message[100];
+uint8_t message[50];
 int loraMode=LORAMODE;
 
 #ifdef WITH_EEPROM
@@ -390,7 +390,7 @@ void loop(void)
 
       uint8_t r_size;
 
-      char final_str[60] = "\\!";
+      char final_str[40] = "\\!";
 
       // main loop for sensors, actually, you don't have to edit anything here
       // just add a predefined sensor if needed or provide a new sensor class instance for a handle a new physical sensor
