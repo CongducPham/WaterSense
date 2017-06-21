@@ -17,8 +17,8 @@
 			"always_enabled":false
 		},	
 		{	
-			"name":"WAZIUP Orion cloud",
-			"script":"python CloudWAZIUP_WS.py",
+			"name":"WaterSense Orion cloud",
+			"script":"python CloudOrion.py",
 			"type":"iotcloud",			
 			"write_key":"",
 			"enabled":true
