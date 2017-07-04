@@ -251,7 +251,7 @@ A simple Soil Monitoring (2 sensors) that periodically report the soil moisture 
 
 See an example [video here](https://www.youtube.com/watch?v=YsKbJeeav_M) demonstrating most of the steps for building the device.
 
-First, install the Arduino IDE 1.6.6. Check that the AVR board library is not above 1.6.9 as there might be some compilation issue otherwise. Then, in your sketch folder, copy the content of the sketch folder of the distribution.
+First, install the Arduino IDE. You can use the latest one (we tested with 1.8.3). But then, check (see the board manager) that the Arduino AVR board library is not above 1.6.11 as there might be some compilation issues because of the change of the GCC AVR compiler. Then, in your sketch folder, copy the content of the sketch folder of the distribution.
 
 With the Arduino IDE, open the Arduino_LoRa_Simple_SoilHum sketch, compile it and upload to an Arduino board. Check your radio module first, see "Connect a radio module to your end-device" above.
 
