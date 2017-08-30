@@ -29,6 +29,19 @@ then
 	echo "Reading MAC address to get last 5 bytes for gateway id"
 	#get the last 5 bytes of the eth0 MAC addr
 	gwid=`ifconfig | grep 'eth0' | awk '{print $NF}' | sed 's/://g' | awk '{ print toupper($1) }' | cut -c 3-`
+	
+	#get the last 5 bytes of the wlan0 MAC addr
+	if [ "$gwid" = "" ]
+		then
+			gwid=`ifconfig | grep 'wlan0' | awk '{print $NF}' | sed 's/://g' | awk '{ print toupper($1) }' | cut -c 3-`
+	fi
+
+	#set a default value
+	if [ "$gwid" = "" ]
+		then
+			gwid="XXXXXXDEF0"
+	fi
+	
 	echo "Creating gateway_id.txt file"
 	echo "Writing 000000$gwid"
 	echo "000000$gwid" > gateway_id.txt
@@ -47,9 +60,9 @@ echo "0- sudo python start_gw.py                                           +"
 echo "1- sudo ./lora_gateway --mode 1                                      +"
 echo "2- sudo ./lora_gateway --mode 1 | python post_processing_gw.py       +"
 echo "3- ps aux | grep -e start_gw -e lora_gateway -e post_proc -e log_gw  +"
-echo "4- tail --line=25 ../Dropbox/LoRa-test/post-processing.log         +"
-echo "5- tail --line=25 -f ../Dropbox/LoRa-test/post-processing.log      +"
-echo "6- less ../Dropbox/LoRa-test/post-processing.log                   +"
+echo "4- tail --line=25 ../Dropbox/LoRa-test/post-processing.log           +"
+echo "5- tail --line=25 -f ../Dropbox/LoRa-test/post-processing.log        +"
+echo "6- less ../Dropbox/LoRa-test/post-processing.log                     +"
 echo "------------------------------------------------------* Bluetooth *--+"
 echo "a- run: sudo hciconfig hci0 piscan                                   +"
 echo "b- run: sudo python rfcomm-server.py                                 +"
