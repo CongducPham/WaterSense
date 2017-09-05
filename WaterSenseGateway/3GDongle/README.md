@@ -1,4 +1,4 @@
-3G connectivity with 3G USB dongle
+3G/4G connectivity with 3G/4G USB dongle
 ==================================
 
 Dongles
@@ -10,6 +10,11 @@ These 2 dongles have been successfully tested and work without any issues:
 - https://fr.aliexpress.com/item/Unlocked-Huawei-Lte-Modem-Adapter-E220-3g-Wwan-Hsdpa-Utms-Usb-Modem-7-2m-Win7-Android/32329684728.html?spm=2114.13010608.0.0.S9UqH7
 
 Generally, most of the Huawei E220 dongles should work fine and I personally find the USB cable to be more practical.
+
+You can also use a simple 3G/4G router where the dongle can be plugged. We also tested these 2 products that work fine:
+
+- https://www.amazon.fr/gp/product/B003WK62OS/ref=oh_aui_detailpage_o08_s00?ie=UTF8&psc=1
+- https://www.amazon.fr/gp/product/B00634PLTW/ref=oh_aui_detailpage_o01_s00?ie=UTF8&psc=1
 
 Many information in this file has been taken from the following original article: https://enavarro.me/raspberry-pi-connection-3g-et-envoi-de-sms-en-meme-temps.html
 
