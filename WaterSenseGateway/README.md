@@ -47,9 +47,11 @@ Features
 - the gateway acts as the WiFi access-point. The SSID is WS_PI_GW_XXXXXXXXXX where XXXXXXXXXX is the last 5 hex bytes of gateway ID: WS_PI_GW_27EB27F90F for instance. It has IP address 192.168.200.1 and will lease IP addresses in the range of 192.168.200.100 and 192.168.200.120. Just connect to http://192.168.200.1 with a web brower (could be from a smartphone) to get the graphic visualization of the data stored in the gateway's MongoDB database.	
 - there is the support of Bluetooth connection. A simple Android App running on Android smartphone displays the data stored in the gateway's MongoDB database.
 - a configuration script (scripts/config_gw.sh) helps you configure the gateway with MongoDB, WiFi and Bluetooth features. It is highly recommended to use this script to set your gateway once all the files have been copied.
-- Use the provided zipped SD card image (Raspbian Jessie)
+- get the zipped SD card image (Raspbian Jessie)
+	- [raspberrypi-jessie-WAZIUP-demo.dmg.zip](http://cpham.perso.univ-pau.fr/LORA/WAZIUP/raspberrypi-jessie-WAZIUP-demo.dmg.zip)
 	- Based on Raspbian Jessie 
-	- Supports Raspberry 1B+, RPI2 and RPI3 (WiFi support is for RPI2 with a TP-Link dongle).
+	- Supports Raspberry 1B+, RPI2, RPI3, RPI0 and RPI0W (out-of-box WiFi support is for RPI3 and RPI0W. For RPI1 and RPI2 see [here](https://github.com/CongducPham/LowCostLoRaGw/blob/master/gw_full_latest/README.md#wifi-instructions-on-rpi1b-and-rpi2) for modifications to support some WiFi dongles)
+	- Get the zipped image, unzip it, install it on an **8GB** SD card, see [this tutorial](https://www.raspberrypi.org/documentation/installation/installing-images/) from www.raspberrypi.org
 	- Plug the SD card into your Raspberry
 	- Connect a radio module (see http://cpham.perso.univ-pau.fr/LORA/RPIgateway.html)
 	- Power-on the Raspberry
@@ -58,15 +60,15 @@ Features
 		- password: loragateway
 		- **it is strongly advise to change the pi user's password**		
 	- The LoRa gateway starts automatically when RPI is powered on
-	- The Raspberry will automatically act as a WiFi access point
-		- SSID=WS_PI_GW_27EB27F90F for instance
+	- With an RPI3 and RPI0W, the Raspberry will automatically act as a WiFi access point
+		- SSID=WAZIUP_PI_GW_27EB27F90F for instance
 		- password=loragateway
 		- **it is strongly advise to change this WiFi password**
-	- Includes most of features described here but a full update with the latest version is **necessary, see below**	
+	- Includes most of features described here but a full update with the latest version is **highly recommended, see below**	
 	- By default, incoming data are uploaded to the [WaterSense ThingSpeak test channel](https://thingspeak.com/channels/248544)
-	- By default, the gateway is running at 433.3MHz.
+	- By default, the gateway is running at 433.3MHz.	
 	- Works out-of-the-box with the [Arduino_LoRa_Simple_SoilHum sketch](https://github.com/CongducPham/WaterSense/tree/master/sketch/Arduino_LoRa_Simple_SoilHum)
-	
+
 Installing the latest gateway version 
 =====================================
 
