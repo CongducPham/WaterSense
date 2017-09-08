@@ -72,6 +72,7 @@ echo "Done"
 
 echo "Creating /home/pi/Dropbox/LoRa-test"
 mkdir -p /home/pi/Dropbox/LoRa-test
+sudo chown -R pi:pi /home/pi/Dropbox
 echo "Done"
 
 rm /home/pi/lora_gateway/log
@@ -128,6 +129,8 @@ else
 	echo "Compiling for Raspberry 1"
 	make lora_gateway
 fi
+
+sudo chown -R pi:pi /home/pi/lora_gateway/
 		
 popd
 

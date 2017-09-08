@@ -2,10 +2,33 @@
 
 echo "updating gateway"
 cd /home/pi
+
 echo "removing any existing WaterSenseGateway folder (from previous update)"
 rm -rf WaterSenseGateway
-echo "getting new WaterSenseGateway from github"
-svn checkout https://github.com/CongducPham/WaterSense/trunk/WaterSenseGateway
+
+if [ -d local_gw_full_latest ]
+then
+	echo "Installing from local_gw_full_latest folder"
+	mv local_gw_full_latest WaterSenseGateway
+else
+	wget -q --spider http://google.com
+
+	if [ $? -eq 0 ]
+		then
+			#online
+			echo "getting new WaterSenseGateway from github"
+			svn checkout https://github.com/CongducPham/WaterSense/trunk/WaterSenseGateway
+		else
+			echo "No Internet connection, exiting"
+			exit
+	fi			
+fi
+
+if [ ! -d WaterSenseGateway ]
+then
+	echo "Failed to find a valid WaterSenseGateway folder for installation, exiting"
+	exit
+fi
 
 if [ -d lora_gateway ]
 	then

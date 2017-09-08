@@ -25,6 +25,7 @@
 #
 # example: ./config_raspbian.sh
 
+cd /home/pi/lora_gateway/scripts
 
 board=`cat /proc/cpuinfo | grep "Revision" | cut -d ':' -f 2 | tr -d " \t\n\r"`
 
