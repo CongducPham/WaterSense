@@ -24,5 +24,7 @@ service_path='/'+organization_name+service_tree
 #the Fiware-ServicePath will be service_path which is based on both organization_name and service_tree, e.g. "/FARM1/TESTS"
 #the Fiware-Service will be project_name, e.g. "watersense"
 
+orion_token = "this_is_my_authorization_token"
+
 source_list=[]
 ####################################################
